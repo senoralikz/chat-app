@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useContacts } from "./ContactsProvider";
 import { useSocket } from "./SocketProvider";
@@ -52,7 +52,7 @@ export function ConversationsProvider({ id, children }) {
   );
 
   useEffect(() => {
-    if (socket === null) return;
+    if (socket == null) return;
 
     socket.on("receive-message", addMessageToConversation);
 
@@ -61,6 +61,7 @@ export function ConversationsProvider({ id, children }) {
 
   function sendMessage(recipients, text) {
     socket.emit("send-message", { recipients, text });
+
     addMessageToConversation({ recipients, text, sender: id });
   }
 
@@ -95,7 +96,7 @@ export function ConversationsProvider({ id, children }) {
   };
 
   return (
-    <ConversationsContext.Provider value={{ value }}>
+    <ConversationsContext.Provider value={value}>
       {children}
     </ConversationsContext.Provider>
   );
